@@ -41,7 +41,13 @@ case "`uname`" in
         ;;
 esac
 
-#CONFDIR="/app/httpd/conf"
+if [ -z ${CONFDIR+x} ]; then
+  CONFDIR="$PREFIX/conf"
+fi
+
+if [ -z ${VARBASE+x} ]; then
+  VARBASE="$PREFIX/var"
+fi
 
 # Stazeni a vybaleni pkgsrc
 if [ ! -f "${PKGSRC_BASE}/pkgsrc/bootstrap/bootstrap" ]; then
