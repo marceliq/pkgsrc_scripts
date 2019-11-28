@@ -65,7 +65,7 @@ if [ ! -d "${HOME}/distfiles" ]; then
   mkdir ${HOME}/distfiles || exit 1
 fi
 
-if [ "$solaris" = false ]; then
+if [ "$solaris" != true ]; then
   if [ -d "${PKGSRC_BASE}/pkgsrc/distfiles" ]; then
     (cd $PKGSRC_BASE/pkgsrc && rm -rf distfiles && ln -s ${HOME}/distfiles .) || exit 1
   fi
