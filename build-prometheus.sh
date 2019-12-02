@@ -4,7 +4,7 @@
 umask 022
 
 PKGSRC_BASE=/app
-PREFIX=/app/elastic/dists/prometheus
+PREFIX=/app/elastic/dists/prometheus/ibmmq_exporter
 PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
 PKGSRC_MODULES="rb/ibmmq"
@@ -15,6 +15,10 @@ export PKGSRC_BASE
 export PREFIX
  
 . base.sh
+
+if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
+  (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
+fi
 
 # doplneni promennych do mk.conf
 MKCONF_PATH=$PREFIX/conf/mk.conf
