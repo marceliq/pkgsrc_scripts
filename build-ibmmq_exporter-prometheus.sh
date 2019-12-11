@@ -7,9 +7,10 @@ PKGSRC_BASE=/app
 PREFIX=/app/elastic/dists/prometheus/ibmmq_exporter
 PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
-PKGSRC_MODULES="rb/prometheus-ibmmq_exporter devel/chrpath"
+#PKGSRC_MODULES="devel/chrpath rb/prometheus-ibmmq_exporter"
+PKGSRC_MODULES="rb/prometheus-ibmmq_exporter"
 
-CLEAN_MODULES="expat flex ncurses libidn2 libuv m4 libunistring automake autoconf bison bsdtar cmake cwrappers curl digest docbook-xsl docbook-xml fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools gmake gperf gtexinfo help2man jasper netpbm jbigkit tiff jpeg libarchive libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxml2 libxslt makedepend mandoc nbpatch p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest p5-Sub-Uplevel p5-Test-Exception p5-Test-Warn p5-Test-NoWarnings p5-Test-Simple pax pkgconf png py27-argparse py27-atomicwrites py27-test py27-attrs py27-cElementTree py27-xcbgen py27-funcsigs py27-linecache2 py27-unittest2 py27-pathlib2 py27-pbr py27-traceback2 py27-pluggy py27-py py27-scandir py27-setuptools_scm py27-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xmlcatmgr xorgproto xtrans"
+CLEAN_MODULES="chrpath ncurses perl bash libtool-base cwrappers pax go14 go112 digest"
 
 export PKGSRC_BASE
 export PREFIX
@@ -43,9 +44,7 @@ for module in $PKGSRC_MODULES
     fi
   done
 
-exit
-
-#chrpath -cr '$ORIGIN/../ibmmq_client/lib64' ./bin/mq_prometheus
+VERSION=`$PREFIX/sbin/pkg_info | ${GREP} mq-metric-samples | ${AWK} -F '-' '{print $4}' | ${AWK} '{print $1}'`
 
 # cisteni prefixu
 _modules=""
@@ -64,7 +63,6 @@ if [ "$_modules" != "" ]; then
   $PREFIX/sbin/pkg_delete $_modules || exit 1
 fi
 
-
 rm -rf \
 $PREFIX/include \
 $PREFIX/conf \
@@ -76,5 +74,5 @@ $PREFIX/pkgdb.refcount \
 $PREFIX/share || exit 1
 
 # vytvoreni balicku
-(cd $PREFIX/.. && tar czf net-`date +%Y%m%d`-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz net) || exit 1
+(cd $PREFIX/.. && tar czf ibmmq_exporter-prometheus-${VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz ibmmq_exporter/bin/mq_prometheus ibmmq_exporter/ibmmq_client) || exit 1
 
