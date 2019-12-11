@@ -44,6 +44,9 @@ for module in $PKGSRC_MODULES
   done
 
 exit
+
+#chrpath -cr '$ORIGIN/../ibmmq_client/lib64' ./bin/mq_prometheus
+
 # cisteni prefixu
 _modules=""
 for module in $CLEAN_MODULES
