@@ -22,17 +22,17 @@ if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
 fi
 
 # doplneni promennych do mk.conf
-MKCONF_PATH=$PREFIX/conf/mk.conf
+#MKCONF_PATH=$PREFIX/conf/mk.conf
 
-props="CFLAGS-=\t\t-Os CXXFLAGS-=\t\t-Os CPPFLAGS-=\t\t-Os"
+#props="CFLAGS-=\t\t-Os CXXFLAGS-=\t\t-Os CPPFLAGS-=\t\t-Os"
 
-for prop in $props
-  do
-    _nol=`$GREP -P "$prop" $MKCONF_PATH | wc -l`
-    if [ $_nol -eq 0 ]; then
-      sed -i "s/\(\.endif.*\)/$prop\n\1/g" $MKCONF_PATH || exit 1
-    fi
-  done
+#for prop in $props
+#  do
+#    _nol=`$GREP -P "$prop" $MKCONF_PATH | wc -l`
+#    if [ $_nol -eq 0 ]; then
+#      sed -i "s/\(\.endif.*\)/$prop\n\1/g" $MKCONF_PATH || exit 1
+#    fi
+#  done
 
 # instalace pkgsrc modulu
 for module in $PKGSRC_MODULES
@@ -74,5 +74,5 @@ $PREFIX/pkgdb.refcount \
 $PREFIX/share || exit 1
 
 # vytvoreni balicku
-(cd $PREFIX/.. && tar czf ibmmq_exporter-prometheus-${VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz ibmmq_exporter/bin/mq_prometheus ibmmq_exporter/ibmmq_client) || exit 1
+(cd $PREFIX/.. && tar czf ibmmq_exporter-prometheus-${VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz ibmmq_exporter/bin/mq_prometheus ibmmq_exporter/ibm-mqc-redist) || exit 1
 
