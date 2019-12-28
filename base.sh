@@ -72,15 +72,26 @@ if [ "$solaris" != true ]; then
 fi
 
 # bootstrap
-cd ${PKGSRC_BASE}/pkgsrc/bootstrap || exit 1
-if [ "$solaris" = true ]; then
-  if [ ! -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then
-    CC=$CC LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" CFLAGS="-Os" CPPFLAGS="-Os" CXXFLAGS="-0s" ./bootstrap --abi 32 --make-jobs $PJOBS --prefer-pkgsrc no --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
+if [ ! -f "${PREFIX}/bin/bmake" ]; then
+  cd ${PKGSRC_BASE}/pkgsrc/bootstrap || exit 1
+  if [ -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then
+    rm -rf ${PKGSRC_BASE}/pkgsrc/bootstrap/work || exit 1
   fi
-else
-  if [ ! -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then
-    LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" CFLAGS="-Os" CPPFLAGS="-Os" CXXFLAGS="-0s" ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR --varbase $VARBASE || exit 1
-#    ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
+  if [ "$solaris" = true ]; then
+    CC=$CC LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" CFLAGS="-Os" CPPFLAGS="-Os" CXXFLAGS="-0s" ./bootstrap --abi 32 --make-jobs $PJOBS --prefer-pkgsrc no --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
+  else
+    STAT="-static --static"
+    FLAG="-g0 -O2 -fno-align-functions -fno-align-jumps -fno-align-loops -fno-align-labels"
+
+    CFLAGS="${FLAG}" \
+    CXXFLAGS="${FLAG}" \
+    FFLAGS="${FLAG}" \
+    LDFLAGS="-s ${STAT}" \
+    CC="/app/muslcc/x86_64-linux-musl-native/bin/x86_64-linux-musl-gcc ${STAT}" \
+    CXX="/app/muslcc/x86_64-linux-musl-native/bin/x86_64-linux-musl-g++ ${STAT}" \
+    ./bootstrap --abi 64 --make-jobs $PJOBS --cwrappers no --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR --varbase $VARBASE || exit 1
+#      LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" CFLAGS="-Os" CPPFLAGS="-Os" CXXFLAGS="-0s" ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR --varbase $VARBASE || exit 1
+#      ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
   fi
 fi
 
@@ -91,6 +102,7 @@ if [ "$solaris" = true ]; then
   PATH=$PREFIX/bin:$PATH:/usr/sbin:/usr/bin:/usr/dt/bin:/usr/ucb:/usr/ccs/bin:/usr/sfw/bin
   props="FETCH_USING=\t\tfetch CC=\t\t\t\/usr\/sfw\/bin\/gcc PKG_DEVELOPER=\t\tyes"
 else
+#  props="MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes MKGCC=\t\tno MKLLVM=\t\tyes HAVE_LLVM=\t\tyes PKGSRC_COMPILER=\tclang CLANGBASE=\t/usr"
   props="MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
 fi
 
