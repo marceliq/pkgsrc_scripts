@@ -5,7 +5,7 @@
 # doplneni promennych do mk.conf
 MKCONF_PATH=$PREFIX/conf/mk.conf
 
-props="PYTHON_DEFAULT_VERSION=\t37 PYTHON_VERSION_DEFAULT=\t37 PYPACKAGE=\t\tpython37 PKG_OPTIONS.python37=\t-x11 CFLAGS-=\t\t-O2 CXXFLAGS-=\t\t-O2 CPPFLAGS-=\t\t-O2 MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
+props="PYTHON_DEFAULT_VERSION=\t37 PYTHON_VERSION_DEFAULT=\t37 PYPACKAGE=\t\tpython37 PKG_OPTIONS.python37=\t-x11"
 
 for prop in $props
   do
