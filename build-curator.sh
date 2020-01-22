@@ -5,13 +5,15 @@ umask 022
 
 PKGSRC_BASE=/app
 PREFIX=/app/elastic/dists/curator
-PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
-PJOBS=8
+CVS_BRANCH="HEAD"
+#PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
+#PKGSRC_MODULES="devel/py-pip lang/py-cxfreeze databases/py-elasticsearch textproc/py-yaml"
+#PKGSRC_MODULES="devel/py-pip lang/py-cxfreeze"
 PKGSRC_MODULES="devel/py-pip"
-PIP_MODULES="elasticsearch-curator"
+PIP_MODULES="pyyaml==3.13 voluptuous elasticsearch-curator"
 
-CLEAN_MODULES="automake autoconf bison bsdtar cmake cwrappers digest docbook-xsl docbook-xml fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools gmake gperf gtexinfo help2man jasper netpbm jbigkit tiff jpeg libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxml2 libxslt makedepend m4 mandoc ncurses nbpatch p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest p5-Sub-Uplevel p5-Test-Exception p5-Test-Warn p5-Test-NoWarnings p5-Test-Simple pax pkgconf png py37-argparse py37-atomicwrites py37-test py37-attrs py37-cElementTree py37-xcbgen py37-funcsigs py37-linecache2 py37-unittest2 py37-pathlib2 py37-pbr py37-traceback2 py37-pluggy py37-py py37-scandir py37-setuptools_scm py37-setuptools_scm_git_archive py37-setuptools py37-expat py37-pip readline rhash swig tradcpp xcb-proto xmlcatmgr xorgproto xtrans unzip"
+CLEAN_MODULES="bsdtar cwrappers digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto py37-pip readline ncurses"
 
 export PKGSRC_BASE
 export PREFIX
@@ -34,7 +36,10 @@ CURATOR_VERSION=`$PREFIX/bin/pip3.7 search elasticsearch-curator |${GREP} -P '^e
 echo $CURATOR_VERSION
 
 # instalace modulu pres pip
-$PREFIX/bin/pip3.7 install $PIP_MODULES || exit 1
+for module in ${PIP_MODULES}
+  do
+    $PREFIX/bin/pip3.7 install $module || exit 1
+  done
 
 # cisteni prefixu
 _modules=""
@@ -72,7 +77,7 @@ $PREFIX/lib/python3.7/distutils/tests \
 $PREFIX/lib/python3.7/idlelib/idle_test \
 $PREFIX/lib/python3.7/lib-tk/test || exit 1
 
-for f in `find ${PREFIX} -type f | ${GREP} -P 'pyc$|pyo$'`; do rm -f ${f}; done
+for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm -f ${f}; done
 
 # vytvoreni balicku
 (cd $PREFIX/.. && tar czf curator-${CURATOR_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz curator) || exit 1
