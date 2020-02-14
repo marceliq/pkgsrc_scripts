@@ -5,7 +5,9 @@ umask 022
 
 PKGSRC_BASE=/app
 PREFIX=/app/salt
-PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
+
+CVS_BRANCH="HEAD"
+#PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
 
 PJOBS=`nproc`
 
@@ -19,6 +21,8 @@ export PREFIX
 export PJOBS
  
 . salt-base.sh
+
+exit
 
 # uprava Makefile pro monit
 MONIT_MODULE="sysutils/monit"

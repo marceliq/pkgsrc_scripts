@@ -91,7 +91,7 @@ if [ "$solaris" = true ]; then
   PATH=$PREFIX/bin:$PATH:/usr/sbin:/usr/bin:/usr/dt/bin:/usr/ucb:/usr/ccs/bin:/usr/sfw/bin
   props="FETCH_USING=\t\tfetch CC=\t\t\t\/usr\/sfw\/bin\/gcc PKG_DEVELOPER=\t\tyes"
 else
-  props="MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
+  props="CXXFLAGS-=\t\t-Os MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
 fi
 
 MKCONF_PATH=$CONFDIR/mk.conf
