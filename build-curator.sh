@@ -11,7 +11,8 @@ CVS_BRANCH="HEAD"
 #PKGSRC_MODULES="devel/py-pip lang/py-cxfreeze databases/py-elasticsearch textproc/py-yaml"
 #PKGSRC_MODULES="devel/py-pip lang/py-cxfreeze"
 PKGSRC_MODULES="devel/py-pip"
-PIP_MODULES="pyyaml==3.13 voluptuous elasticsearch-curator"
+PIP_MODULES="voluptuous>=0.9.3 elasticsearch urllib3>=1.24.2,<1.25 requests>=2.20.0 boto3>=1.9.142 requests_aws4auth>=0.9 click>=6.7,<7.0 pyyaml==3.13 certifi>=2019.9.11 six>=1.11.0 elasticsearch-curator"
+#PIP_MODULES="elasticsearch-curator"
 
 CLEAN_MODULES="bsdtar cwrappers digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto py37-pip readline ncurses"
 

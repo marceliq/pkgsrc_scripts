@@ -5,7 +5,8 @@ umask 022
 
 PKGSRC_BASE=/app
 PREFIX=/app/common/glances
-PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
+CVS_BRANCH="HEAD"
+#PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 #PKGSRC_URL="ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 #PKGSRC_URL="ftp://ftp.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.gz"
 
@@ -17,7 +18,9 @@ CLEAN_MODULES="automake autoconf bison bsdtar cmake cwrappers digest docbook-xsl
 export PKGSRC_BASE
 export PREFIX
  
-. python37-base.sh
+. python-base.sh
+
+exit
 
 # instalace pkgsrc modulu
 for module in $PKGSRC_MODULES

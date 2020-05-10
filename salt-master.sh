@@ -88,7 +88,7 @@ echo "#  start ${PREFIX}/bin/salt-api -d" >>$PREFIX/conf/monit/monitrc
 echo "#  stop ${PREFIX}/bin/salt-kill-api" >>$PREFIX/conf/monit/monitrc
 
 # odchytnout verzi saltu
-SALT_VERSION=`$PREFIX/sbin/pkg_info | ${GREP} salt | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`
+SALT_VERSION=`$PREFIX/sbin/pkg_info | ${GREP} salt | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`+patch-57090
 echo $SALT_VERSION
 
 # cisteni prefixu
@@ -107,8 +107,6 @@ if [ "$_modules" != "" ]; then
   echo "Deleting modules: $_modules"
   $PREFIX/sbin/pkg_delete $_modules || exit 1
 fi
-
-exit
 
 rm -rf \
 $PREFIX/include/* \

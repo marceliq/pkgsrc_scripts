@@ -5,8 +5,9 @@ umask 022
 
 PKGSRC_BASE=/app
 PREFIX=/app/elastic/dists/redis
-PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
-PJOBS=8
+
+CVS_BRANCH="HEAD"
+#PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
 PKGSRC_MODULES="databases/redis"
 
@@ -14,22 +15,8 @@ CLEAN_MODULES="bzip2 expat ncurses libidn2 perl libuv m4 libunistring automake a
 
 export PKGSRC_BASE
 export PREFIX
-export PJOBS
  
 . base.sh
-
-# doplneni promennych do mk.conf
-MKCONF_PATH=$PREFIX/conf/mk.conf
-
-props="CFLAGS-=\t\t-O2 CXXFLAGS-=\t\t-O2 CPPFLAGS-=\t\t-O2 MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
-
-for prop in $props
-  do
-    _nol=`$GREP -P "$prop" $MKCONF_PATH | wc -l`
-    if [ $_nol -eq 0 ]; then
-      sed -i "s/\(\.endif.*\)/$prop\n\1/g" $MKCONF_PATH || exit 1
-    fi
-  done
 
 # instalace pkgsrc modulu
 for module in $PKGSRC_MODULES
@@ -40,6 +27,8 @@ for module in $PKGSRC_MODULES
       (cd ${PKGSRC_BASE}/pkgsrc/$module && bmake install clean clean-depends) || exit 1
     fi
   done
+
+exit
 
 VERSION=`$PREFIX/sbin/pkg_info | ${GREP} redis | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`
 

@@ -38,8 +38,10 @@ for module in $PKGSRC_MODULES
   done
 
 # odchytnout verzi
-VERSION=`$PREFIX/sbin/pkg_info | ${GREP} apache-2 | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`
-echo $VERSION
+APACHE_VERSION=`$PREFIX/sbin/pkg_info | ${GREP} apache-2 | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`
+echo $APACHE_VERSION
+
+OPENSSL_VERSION=`$PREFIX/sbin/pkg_info | ${GREP} openssl | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`
 
 # cisteni prefixu
 _modules=""
@@ -82,5 +84,5 @@ $PREFIX/lib/python3.7/lib-tk/test || exit 1
 for f in `find ${PREFIX} -type f | perl -nle 'print if m/\.pyc$|\.pyo$|\.a$|\.la$/'`; do rm -f ${f}; done
 
 # vytvoreni balicku
-(cd $PREFIX/../.. && ${TAR} czf httpd-${VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz httpd) || exit 1
+(cd $PREFIX/../.. && ${TAR} czf httpd-${APACHE_VERSION}-openssl-${OPENSSL_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz httpd) || exit 1
 
