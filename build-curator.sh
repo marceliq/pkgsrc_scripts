@@ -42,6 +42,10 @@ for module in ${PIP_MODULES}
     $PREFIX/bin/pip3.7 install $module || exit 1
   done
 
+# odchytnout verzi curatoru
+ES_VERSION=`$PREFIX/bin/pip3.7 list elasticsearch |${GREP} -P '^elasticsearch\ +[0-9]' |${AWK} -F ' ' '{print $2}'` || exit 1
+echo $ES_VERSION
+
 # cisteni prefixu
 _modules=""
 for module in $CLEAN_MODULES
@@ -81,5 +85,5 @@ $PREFIX/lib/python3.7/lib-tk/test || exit 1
 for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm -f ${f}; done
 
 # vytvoreni balicku
-(cd $PREFIX/.. && tar czf curator-${CURATOR_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz curator) || exit 1
+(cd $PREFIX/.. && tar czf curator-${CURATOR_VERSION}-es-${ES_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz curator) || exit 1
 
