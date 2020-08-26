@@ -15,6 +15,8 @@ cd $_cwd
 
 . python27-base.sh
 
+#exit
+
 # salt
 _nol=`$PREFIX/sbin/pkg_info |grep salt |wc -l`
 if [ $_nol -eq 0 ]; then

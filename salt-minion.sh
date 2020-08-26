@@ -7,19 +7,17 @@ PKGSRC_BASE=/app
 PREFIX=/app/common/salt
 
 CVS_BRANCH="pkgsrc-2019Q4"
+#CVS_BRANCH="HEAD"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
-
-PJOBS=`nproc`
 
 PKGSRC_MODULES="misc/screen devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-elasticsearch databases/py-redis devel/py-mako sysutils/py-kazoo time/py-dateutil security/py-m2crypto security/gnupg2 sysutils/py-Glances"
 
-PIP_MODULES="croniter timelib hvac python-gnupg docker"
+PIP_MODULES="croniter timelib hvac python-gnupg docker ptpython==0.41"
 
-CLEAN_MODULES="automake autoconf bison bsdtar cmake cwrappers digest docbook-xsl docbook-xml flex fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools gmake gperf gtexinfo help2man jasper netpbm jbigkit tiff jpeg libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxslt m4 makedepend mandoc nbpatch p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest pax pkgconf png py27-atomicwrites py27-test py27-attrs py27-cElementTree py27-xcbgen py27-funcsigs py27-linecache2 py27-unittest2 py27-pathlib2 py27-pbr py27-traceback2 py27-pluggy py27-py py27-scandir py27-setuptools_scm py27-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xtrans"
+CLEAN_MODULES="automake autoconf bison bsdtar cmake cwrappers digest docbook-xsl docbook-xml flex fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools gmake gperf gtexinfo help2man jasper netpbm jbigkit tiff jpeg libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxslt m4 makedepend mandoc nbpatch p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest pax pkgconf png py27-atomicwrites py27-test py27-attrs py27-cElementTree py27-xcbgen py27-funcsigs py27-linecache2 py27-unittest2 py27-pathlib2 py27-pbr py27-traceback2 py27-pluggy py27-py py27-scandir py27-setuptools_scm py27-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xorgproto xtrans"
 
 export PKGSRC_BASE
 export PREFIX
-export PJOBS
 
 . salt-base.sh
 
@@ -30,7 +28,6 @@ MK_PATH="${PKGSRC_BASE}/pkgsrc/$MONIT_MODULE/Makefile"
 _nol=`$GREP -P "^CONFIGURE_ARGS\+=\s+--without-pam" $MK_PATH | wc -l`
 if [ $_nol -eq 0 ]; then
   sed -i "s/^\(PKG_SYSCONFSUBDIR=\s\+monit\)/CONFIGURE_ARGS\+\=\ \ \ \ \ \ \ \ --without-pam\n\1/g" $MK_PATH || exit 1
-fi
 
 PKGSRC_MODULES="$MONIT_MODULE $PKGSRC_MODULES"
 
