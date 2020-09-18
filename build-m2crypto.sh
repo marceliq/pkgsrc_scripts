@@ -11,7 +11,7 @@ CVS_BRANCH="HEAD"
 #PKGSRC_URL="ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 #PKGSRC_URL="ftp://ftp.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.gz"
 
-PKGSRC_MODULES="rb/py-m2crypto"
+PKGSRC_MODULES="security/py-m2crypto"
 PIP_MODULES=""
 
 CLEAN_MODULES=""
@@ -19,7 +19,7 @@ CLEAN_MODULES=""
 export PKGSRC_BASE
 export PREFIX
  
-. python36-base.sh
+. python37-base.sh
 #. base.sh
 
 if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
