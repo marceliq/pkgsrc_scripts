@@ -103,5 +103,6 @@ $PREFIX/lib/python2.7/lib-tk/test || exit 1
 for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm -f ${f}; done
 
 # vytvoreni balicku
-(cd $PREFIX/.. && tar czf salt-minion-${SALT_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz salt) || exit 1
+. /etc/os-release
+(cd $PREFIX/.. && tar czf salt-minion-${SALT_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-el${VERSION_ID}-`uname -p`.tar.gz salt) || exit 1
 
