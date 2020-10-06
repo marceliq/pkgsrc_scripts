@@ -28,7 +28,3 @@ if [ $_nol -eq 0 ]; then
   (cd ${PKGSRC_BASE}/pkgsrc/lang/python37 && bmake install clean clean-depends) || exit 1
 fi
 
-#if [ ! -f "${PREFIX}/conf/openssl/certs/ca-certificates.crt" ]; then
-#  ${PREFIX}/sbin/mozilla-rootcerts install || exit 1
-#fi
-

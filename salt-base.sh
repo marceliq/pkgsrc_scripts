@@ -13,7 +13,7 @@ cd $_cwd
 # build a instalace
 # python
 
-. python27-base.sh
+. python37-base.sh
 
 #exit
 
@@ -25,9 +25,5 @@ fi
 
 if [ -d "${PREFIX}/conf/salt" ]; then
   (mv ${PREFIX}/conf/salt ${PREFIX}/conf/salt_dist && mkdir ${PREFIX}/conf/salt) || exit 1
-fi
-
-if [ ! -f "${PREFIX}/conf/openssl/certs/ca-certificates.crt" ]; then
-  ${PREFIX}/sbin/mozilla-rootcerts install || exit 1
 fi
 

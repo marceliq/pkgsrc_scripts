@@ -17,7 +17,7 @@ CLEAN_MODULES="automake autoconf bison bmake bootstrap-mk-files bsdtar cmake cwr
 
 export PKGSRC_BASE
 export PREFIX
- 
+
 . salt-base.sh
 
 # uprava Makefile pro monit
