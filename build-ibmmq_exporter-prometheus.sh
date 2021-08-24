@@ -11,7 +11,7 @@ CVS_BRANCH="HEAD"
 #PKGSRC_MODULES="devel/chrpath rb/prometheus-ibmmq_exporter"
 PKGSRC_MODULES="rb/prometheus-ibmmq_exporter"
 
-CLEAN_MODULES="chrpath gtexinfo ncurses p5-gettext help2man p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth perl bash libtool-base cwrappers pax go14 go112 go116 digest"
+CLEAN_MODULES="pkg_install pkgconf ccache chrpath gtexinfo ncurses p5-gettext help2man p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth perl bash libtool-base nbpatch cwrappers pax go14 go112 go116 digest"
 
 export PKGSRC_BASE
 export PREFIX
@@ -61,7 +61,7 @@ for module in $CLEAN_MODULES
 
 if [ "$_modules" != "" ]; then
   echo "Deleting modules: $_modules"
-  $PREFIX/sbin/pkg_delete $_modules || exit 1
+  $PREFIX/sbin/pkg_delete -ff $_modules || exit 1
 fi
 
 rm -rf \
