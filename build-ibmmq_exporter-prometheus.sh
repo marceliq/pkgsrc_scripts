@@ -11,7 +11,7 @@ CVS_BRANCH="HEAD"
 #PKGSRC_MODULES="devel/chrpath rb/prometheus-ibmmq_exporter"
 PKGSRC_MODULES="rb/prometheus-ibmmq_exporter"
 
-CLEAN_MODULES="chrpath ncurses perl bash libtool-base cwrappers pax go14 go112 digest"
+CLEAN_MODULES="chrpath gtexinfo ncurses p5-gettext help2man p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth perl bash libtool-base cwrappers pax go14 go112 go116 digest"
 
 export PKGSRC_BASE
 export PREFIX
@@ -22,7 +22,6 @@ if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
   (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
 fi
 
-exit
 # doplneni promennych do mk.conf
 #MKCONF_PATH=$PREFIX/conf/mk.conf
 

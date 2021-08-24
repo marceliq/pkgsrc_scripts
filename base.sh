@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+
 #set -x
 
 umask 022
@@ -85,7 +85,7 @@ else
 fi
 
 # nastaveni env var PATH
-PATH=$PREFIX/bin:$PATH
+PATH=$PREFIX/bin:$PATH:$HOME/pkgsrc/bin
 
 if [ "$solaris" = true ]; then
   PATH=$PREFIX/bin:$PATH:/usr/sbin:/usr/bin:/usr/dt/bin:/usr/ucb:/usr/ccs/bin:/usr/sfw/bin
@@ -103,6 +103,13 @@ for prop in $props
       $SED "s/(\.endif.*)/$prop\n\1/g" $MKCONF_PATH || exit 1
     fi
   done
+
+_nol=`perl -nle "print if m/PKGSRC_COMPILER=\tccache gcc/" $MKCONF_PATH | wc -l`
+
+if [ $_nol -eq 0 ]; then
+  $SED "s/(\.endif.*)/PKGSRC_COMPILER=\tccache gcc\n\1/g" $MKCONF_PATH || exit 1
+fi
+
 
 export PATH
 

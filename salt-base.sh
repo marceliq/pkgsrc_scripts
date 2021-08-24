@@ -13,7 +13,7 @@ cd $_cwd
 # build a instalace
 # python
 
-. python37-base.sh
+. python38-base.sh
 
 #exit
 
