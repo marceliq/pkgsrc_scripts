@@ -7,8 +7,8 @@ PKGSRC_BASE=/app
 PREFIX=/app/salt
 
 #CVS_BRANCH="pkgsrc-2019Q4"
-CVS_BRANCH="pkgsrc-2020Q3"
-#CVS_BRANCH="HEAD"
+#CVS_BRANCH="pkgsrc-2020Q3"
+CVS_BRANCH="HEAD"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
 
 PKGSRC_MODULES="devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-redis devel/py-kafka-python devel/py-mako devel/git-base sysutils/py-kazoo time/py-dateutil www/py-cherrypy17 security/py-m2crypto security/gnupg2 sysutils/py-Glances databases/py-sqlite3"
@@ -21,6 +21,7 @@ export PREFIX
 
 . salt-base.sh
 
+exit
 # uprava Makefile pro monit
 MONIT_MODULE="sysutils/monit"
 MK_PATH="${PKGSRC_BASE}/pkgsrc/$MONIT_MODULE/Makefile"
