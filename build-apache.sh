@@ -4,9 +4,9 @@
 umask 022
 
 PKGSRC_BASE=/app
-PREFIX=/app/httpd/apache2
-CONFDIR=/app/httpd/conf
-VARBASE=/app/httpd/var
+PREFIX=/app/elastic/httpd/apache2
+CONFDIR=/app/elastic/httpd/conf
+VARBASE=/app/elastic/httpd/var
 
 CVS_BRANCH="HEAD"
 #PKGSRC_URL="ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"

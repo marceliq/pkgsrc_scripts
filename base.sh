@@ -104,11 +104,11 @@ for prop in $props
     fi
   done
 
-_nol=`perl -nle "print if m/PKGSRC_COMPILER=\tccache gcc/" $MKCONF_PATH | wc -l`
+#_nol=`perl -nle "print if m/PKGSRC_COMPILER=\tccache gcc/" $MKCONF_PATH | wc -l`
 
-if [ $_nol -eq 0 ]; then
-  $SED "s/(\.endif.*)/PKGSRC_COMPILER=\tccache gcc\n\1/g" $MKCONF_PATH || exit 1
-fi
+#if [ $_nol -eq 0 ]; then
+#  $SED "s/(\.endif.*)/PKGSRC_COMPILER=\tccache gcc\n\1/g" $MKCONF_PATH || exit 1
+#fi
 
 
 export PATH

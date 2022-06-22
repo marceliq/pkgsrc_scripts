@@ -14,19 +14,30 @@ CVS_BRANCH="HEAD"
 export PKGSRC_BASE
 export PREFIX
 
-#. salt-base.sh
-. salt-base_RB_3004nb2.sh
+. salt-base.sh
+#. salt-base_RB_3004nb2.sh
 
 PYVER=`$GREP -P "^PYTHON_VERSION_DEFAULT" ${PKGSRC_BASE}/pkgsrc/lang/python/pyversion.mk | ${AWK} -F ' ' '{print $2}'`
 PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 
 #PKGSRC_MODULES="devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-redis devel/py-kafka-python devel/py-mako devel/git-base sysutils/py-kazoo time/py-dateutil www/py-cherrypy17 security/py-m2crypto security/gnupg2 sysutils/py-Glances databases/py-sqlite3"
-PKGSRC_MODULES="devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-redis devel/py-kafka-python devel/py-mako devel/git-base devel/py-gitpython sysutils/py-kazoo time/py-dateutil www/py-cherrypy rb/py-m2crypto databases/py-sqlite3"
+PKGSRC_MODULES="devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil www/py-cherrypy rb/py-m2crypto databases/py-sqlite3"
 
 #PIP_MODULES="jira python-consul dohq-artifactory croniter timelib hvac python-gnupg GitPython docker pywinrm pymdstat ptpython==0.41 elasticsearch"
 PIP_MODULES="jira python-consul dohq-artifactory croniter timelib hvac python-gnupg docker pywinrm pymdstat elasticsearch px-proxy"
+CLEAN_MODULES="automake autoconf bison bmake bootstrap-mk-files bsdtar ccache cmake cwrappers digest docbook-xsl docbook-xml fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools ghostscript-agpl gmake gperf gtexinfo help2man jasper jbig2dec netpbm jbigkit tiff jpeg lcms2 libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxslt makedepend mandoc nbpatch openjpeg p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest p5-Sub-Uplevel p5-Test-Exception p5-Test-Warn p5-Test-NoWarnings p5-Test-Simple pax perl pkg_install pkgconf png py${PYVER}-argparse py${PYVER}-atomicwrites py${PYVER}-test py${PYVER}-attrs py${PYVER}-cElementTree py${PYVER}-xcbgen py${PYVER}-funcsigs py${PYVER}-linecache2 py${PYVER}-unittest2 py${PYVER}-pathlib2 py${PYVER}-pbr py${PYVER}-traceback2 py${PYVER}-pluggy py${PYVER}-py py${PYVER}-scandir py${PYVER}-setuptools_scm py${PYVER}-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xorgproto xtrans urw-fonts"
 
-CLEAN_MODULES="automake autoconf bison bmake bootstrap-mk-files bsdtar ccache cmake cwrappers digest docbook-xsl docbook-xml fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools ghostscript-agpl gmake gperf gtexinfo help2man jasper jbig2dec netpbm jbigkit tiff jpeg lcms2 libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxslt makedepend mandoc nbpatch openjpeg p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest p5-Sub-Uplevel p5-Test-Exception p5-Test-Warn p5-Test-NoWarnings p5-Test-Simple pax pkg_install pkgconf png py${PYVER}-argparse py${PYVER}-atomicwrites py${PYVER}-test py${PYVER}-attrs py${PYVER}-cElementTree py${PYVER}-xcbgen py${PYVER}-funcsigs py${PYVER}-linecache2 py${PYVER}-unittest2 py${PYVER}-pathlib2 py${PYVER}-pbr py${PYVER}-traceback2 py${PYVER}-pluggy py${PYVER}-py py${PYVER}-scandir py${PYVER}-setuptools_scm py${PYVER}-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xorgproto xtrans urw-fonts"
+# uprava Makefile pro pygit2
+PYGIT_MODULE="devel/py-pygit2"
+MK_PATH="${PKGSRC_BASE}/pkgsrc/$PYGIT_MODULE/Makefile"
+
+#_nol=`$GREP -P "^USE_LANGUAGES=\s+c\ c99" $MK_PATH | wc -l`
+_nol=`$GREP -P "^USE_LANGUAGES=\s+c99" $MK_PATH | wc -l`
+if [ $_nol -eq 0 ]; then
+  sed -i "s/^\(PYTHON_VERSIONS_INCOMPATIBLE=\s\+27\)/USE_LANGUAGES\=	c99\n\1/g" $MK_PATH || exit 1
+fi
+
+PKGSRC_MODULES="$PYGIT_MODULE $PKGSRC_MODULES"
 
 # uprava Makefile pro monit
 MONIT_MODULE="sysutils/monit"
