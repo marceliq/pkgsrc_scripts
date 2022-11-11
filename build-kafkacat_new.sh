@@ -10,7 +10,7 @@ CVS_BRANCH="HEAD"
 
 PKGSRC_MODULES="wip/kafkacat"
 
-CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar bzip2 ccache cmake curl cwrappers db4 digest expat help2man libarchive libffi libidn2 libtool-base libunistring libuuid libuv libxml2 makedepend nbpatch ncurses nghttp2 p5-gettext pax perl pkg_install pkgconf python38 readline rhash xmlcatmgr xorgproto"
+CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar bzip2 ccache cmake curl cwrappers db4 digest expat help2man libarchive libffi libidn2 libtool-base libunistring libuuid libuv libxml2 makedepend nbpatch ncurses nghttp2 p5-gettext pax perl pkg_install pkgconf python310 readline rhash xmlcatmgr xorgproto"
 
 export PKGSRC_BASE
 export PREFIX

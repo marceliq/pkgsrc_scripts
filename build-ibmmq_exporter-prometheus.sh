@@ -11,7 +11,7 @@ CVS_BRANCH="HEAD"
 #PKGSRC_MODULES="devel/chrpath rb/prometheus-ibmmq_exporter"
 PKGSRC_MODULES="rb/prometheus-ibmmq_exporter"
 
-CLEAN_MODULES="pkg_install pkgconf ccache chrpath gtexinfo ncurses p5-gettext help2man p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth perl bash libtool-base nbpatch cwrappers pax go14 go112 go116 digest"
+CLEAN_MODULES="pkg_install pkgconf ccache chrpath gtexinfo ncurses p5-gettext help2man p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth perl bash libtool-base nbpatch cwrappers pax go14 go112 go116 go119 digest mktools"
 
 export PKGSRC_BASE
 export PREFIX

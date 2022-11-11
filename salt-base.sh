@@ -13,7 +13,7 @@ cd $_cwd
 # build a instalace
 # python
 
-#. python27-base.sh
+. python27-base.sh
 
 # salt
 _nol=`$PREFIX/sbin/pkg_info |grep salt |wc -l`

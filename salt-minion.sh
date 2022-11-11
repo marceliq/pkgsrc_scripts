@@ -53,7 +53,7 @@ for _type in $_TYPES
     echo "kill \`cat ${PREFIX}/var/run/salt-${_type}.pid\`" >"$PREFIX/bin/salt-kill-$_type"
     chmod +x $PREFIX/bin/salt-kill-$_type || exit 1
   done
-  
+
 # pridani monitrc pro salt
 echo "check process salt-minion" >$PREFIX/conf/monit/monitrc
 echo "  with pidfile ${PREFIX}/var/run/salt-minion.pid" >>$PREFIX/conf/monit/monitrc

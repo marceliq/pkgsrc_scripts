@@ -12,7 +12,8 @@ CVS_BRANCH="HEAD"
 #PKGSRC_URL="ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
-PKGSRC_MODULES="rb/ap24-auth-gssapi rb/ap-modsecurity2 rb/ap-php"
+#PKGSRC_MODULES="rb/ap24-auth-gssapi rb/ap-modsecurity2 rb/ap-php"
+PKGSRC_MODULES="rb/ap24-auth-gssapi"
 
 CLEAN_MODULES="bmake bootstrap-mk-files pkg_install ccache libuv libunistring libidn2 libarchive flex perl curl automake autoconf bison bsdtar cmake cwrappers digest docbook-xsl docbook-xml fontconfig ghostscript-gpl ghostscript googletest groff ghostscript-fonts freetype2 gettext-lib gettext-tools gmake gperf gtexinfo help2man jasper netpbm jbigkit tiff jpeg libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxslt makedepend m4 mandoc nbpatch p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest p5-Sub-Uplevel p5-Test-Exception p5-Test-Warn p5-Test-NoWarnings p5-Test-Simple pax pkgconf png py310-argparse py310-atomicwrites py310-test-runner py310-test py310-cElementTree py310-xcbgen py310-funcsigs py310-linecache2 py310-unittest2 py310-pathlib2 py310-pbr py310-traceback2 py310-pluggy py310-py py310-scandir py310-setuptools_scm py310-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xorgproto xtrans unzip"
 
@@ -21,7 +22,7 @@ export PREFIX
 export CONFDIR
 export VARBASE
 
-. base.sh
+. base_syslibs_link.sh
 
 if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
   (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
