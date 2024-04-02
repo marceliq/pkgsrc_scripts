@@ -75,7 +75,7 @@ fi
 cd ${PKGSRC_BASE}/pkgsrc/bootstrap || exit 1
 if [ "$solaris" = true ]; then
   if [ ! -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then
-    CC=$CC LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" ./bootstrap --abi 32 --make-jobs $PJOBS --prefer-pkgsrc no --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
+    CC="${CC}" LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" ./bootstrap --abi 32 --make-jobs $PJOBS --prefer-pkgsrc no --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
   fi
 else
   if [ ! -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then

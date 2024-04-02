@@ -4,21 +4,21 @@
 umask 022
 _CWD=`pwd`
 PKGSRC_BASE=/app
-PREFIX=/app/common/lang/python3.11
+PREFIX=/app/common/lang/rust
 CVS_BRANCH="HEAD"
 #CVS_BRANCH="pkgsrc-2021Q1"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
-PKGSRC_MODULES="devel/py-pip devel/py-cffi security/py-cryptography"
-#PIP_MODULES="cryptography"
-PIP_MODULES=""
+PKGSRC_MODULES=""
 
 CLEAN_MODULES="bsdtar cwrappers mktools nbpatch digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto ccache bootstrap-mk-files bmake pkg_install"
 
 export PKGSRC_BASE
 export PREFIX
  
-. python311-base.sh
+. rust-base.sh
+
+exit
 
 PYVER=`$GREP -P "^PY_DISTVERSION" ${PKGSRC_BASE}/pkgsrc/lang/python311/dist.mk | ${AWK} -F ' ' '{print $2}'`
 echo $PYVER
