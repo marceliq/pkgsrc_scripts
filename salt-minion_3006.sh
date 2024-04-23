@@ -57,25 +57,10 @@ for _type in $_TYPES
   done
 
 # pridani monitrc pro salt
-echo "check process salt-master" >$PREFIX/conf/monit/monitrc
-echo "  with pidfile ${PREFIX}/var/run/salt-master.pid" >>$PREFIX/conf/monit/monitrc
-echo "  start ${PREFIX}/bin/salt-master -d" >>$PREFIX/conf/monit/monitrc
-echo "  stop ${PREFIX}/bin/salt-kill-master" >>$PREFIX/conf/monit/monitrc
-echo >>$PREFIX/conf/monit/monitrc
 echo "check process salt-minion" >>$PREFIX/conf/monit/monitrc
 echo "  with pidfile ${PREFIX}/var/run/salt-minion.pid" >>$PREFIX/conf/monit/monitrc
 echo "  start ${PREFIX}/bin/salt-minion -d" >>$PREFIX/conf/monit/monitrc
 echo "  stop ${PREFIX}/bin/salt-kill-minion" >>$PREFIX/conf/monit/monitrc
-echo >>$PREFIX/conf/monit/monitrc
-echo "#check process salt-syndic" >>$PREFIX/conf/monit/monitrc
-echo "#  with pidfile ${PREFIX}/var/run/salt-syndic.pid" >>$PREFIX/conf/monit/monitrc
-echo "#  start ${PREFIX}/bin/salt-syndic -d" >>$PREFIX/conf/monit/monitrc
-echo "#  stop ${PREFIX}/bin/salt-kill-syndic" >>$PREFIX/conf/monit/monitrc
-echo >>$PREFIX/conf/monit/monitrc
-echo "#check process salt-api" >>$PREFIX/conf/monit/monitrc
-echo "#  with pidfile ${PREFIX}/var/run/salt-api.pid" >>$PREFIX/conf/monit/monitrc
-echo "#  start ${PREFIX}/bin/salt-api -d" >>$PREFIX/conf/monit/monitrc
-echo "#  stop ${PREFIX}/bin/salt-kill-api" >>$PREFIX/conf/monit/monitrc
 
 # odchytnout verzi saltu
 SALT_VERSION=`$PREFIX/sbin/pkg_info | ${GREP} salt | ${AWK} -F '-' '{print $2}' | ${AWK} '{print $1}'`
