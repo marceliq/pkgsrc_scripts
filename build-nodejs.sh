@@ -42,8 +42,6 @@ for module in $PKGSRC_MODULES
     fi
   done
 
-exit
-
 # cisteni prefixu
 _modules=""
 for module in $CLEAN_MODULES
@@ -73,10 +71,11 @@ $PREFIX/share/doc/* \
 for f in `find ${PREFIX} -type f | ${GREP} -P '\.a$|\.la$'`; do rm -f ${f}; done
 
 _actual=`pwd`
-(cd $PREFIX && python3 $_CWD/origin_rpath.py) || exit 1
+(cd $PREFIX && python3 $_CWD/origin_rpath.py && cd bin && chrpath node -cr \$ORIGIN/../lib:\$ORIGIN/../gcc10/x86_64-redhat-linux/lib64) || exit 1
 cd $_actual
 
 exit
+
 # vytvoreni balicku
 (cd $PREFIX/.. && tar czf python-${PYVER}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz python3.11) || exit 1
 
