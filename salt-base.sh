@@ -9,7 +9,7 @@ if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
 fi
 
 cd $_cwd
-
+exit
 # build a instalace
 # python
 

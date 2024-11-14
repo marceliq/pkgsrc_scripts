@@ -13,11 +13,12 @@ PKGSRC_MODULES="devel/py-pip devel/py-cffi security/py-cryptography"
 #PIP_MODULES="cryptography"
 PIP_MODULES=""
 
-CLEAN_MODULES="bsdtar cwrappers mktools nbpatch digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto ccache bootstrap-mk-files bmake pkg_install"
+CLEAN_MODULES="xmlcatmgr rhash py311-wheel py311-typing-extensions py311-setuptools-rust py311-setuptools py311-semantic_version py311-pyparsing py311-setuptools_scm py311-installer py311-maturin py311-packaging py311-build py311-flit_core lz4 zstd llvm nghttp2 libxml2 libuv libunwind libunistring libidn2 libarchive cmake curl rust p5-gettext help2man autoconf automake bsdtar cwrappers mktools digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto ccache bootstrap-mk-files bmake pkg_install"
+#CLEAN_MODULES="xmlcatmgr rhash py311-wheel py311-typing-extensions py311-setuptools-rust py311-setuptools py311-semantic_version py311-pyparsing py311-setuptools_scm py311-installer py311-maturin py311-packaging py311-build py311-flit_core lz4 zstd llvm nghttp2 libxml2 libuv libunwind libunistring libidn2 libarchive cmake curl rust p5-gettext help2man autoconf automake bsdtar cwrappers mktools digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto ccache"
 
 export PKGSRC_BASE
 export PREFIX
- 
+
 . python311-base.sh
 
 PYVER=`$GREP -P "^PY_DISTVERSION" ${PKGSRC_BASE}/pkgsrc/lang/python311/dist.mk | ${AWK} -F ' ' '{print $2}'`

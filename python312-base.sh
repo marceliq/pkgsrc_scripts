@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 . base.sh
-
+exit
 # doplneni promennych do mk.conf
 MKCONF_PATH=$PREFIX/conf/mk.conf
 

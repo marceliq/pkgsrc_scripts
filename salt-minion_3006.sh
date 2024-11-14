@@ -20,9 +20,12 @@ PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 #PYVER=`$GREP -P "^PYTHON_VERSION_DEFAULT" ${PKGSRC_BASE}/pkgsrc/lang/python/pyversion.mk | ${AWK} -F ' ' '{print $2}'`
 #PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 
-PKGSRC_MODULES="misc/screen sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml wip/py-hvac misc/py-immutables"
-PIP_MODULES="contextvars croniter timelib"
-CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers curl digest flex gtexinfo help2man libarchive libtool-base libuv libxml2 mktools nbpatch nghttp2 p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust xmlcatmgr py${PYVER}-build py${PYVER}-calver py${PYVER}-cython py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pip py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-tomli py${PYVER}-trove-classifiers py${PYVER}-wheel"
+#PKGSRC_MODULES="misc/screen sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml wip/py-hvac misc/py-immutables"
+PKGSRC_MODULES="misc/screen sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml misc/py-immutables"
+
+PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter timelib"
+
+CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers curl digest flex gtexinfo help2man libarchive libtool-base libuv libxml2 llvm mktools nbpatch nghttp2 p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust xmlcatmgr py${PYVER}-build py${PYVER}-calver py${PYVER}-cython py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatch-vcs py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pip py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-tomli py${PYVER}-trove-classifiers py${PYVER}-wheel py${PYVER}-scikit-build-core"
 
 # uprava Makefile pro monit
 #MONIT_MODULE="sysutils/monit"
@@ -46,7 +49,7 @@ for module in $PKGSRC_MODULES
   done
 
 # instalace modulu pres pip
-$PREFIX/bin/pip${PYVER_SEP} install $PIP_MODULES || exit 1
+$PREFIX/bin/pip-${PYVER_SEP} install $PIP_MODULES || exit 1
 
 # vytvoreni killovacich skriptu
 _TYPES="master minion syndic api"

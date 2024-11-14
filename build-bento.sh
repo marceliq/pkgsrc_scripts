@@ -1,29 +1,30 @@
 #!/usr/bin/env bash
-set -x
+#set -x
 
 umask 022
 
 PKGSRC_BASE=/app
-PREFIX=/app/prometheus/dists/prometheus/ibmmq_exporter
+PREFIX=/app/common/bento
+#CVS_BRANCH="HEAD"
 CVS_BRANCH="pkgsrc-2023Q3"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2023Q4/pkgsrc.tar.gz"
 
 #PKGSRC_MODULES="devel/chrpath rb/prometheus-ibmmq_exporter"
-PKGSRC_MODULES="rb/prometheus-ibmmq_exporter"
+PKGSRC_MODULES="rb/bento"
 
 CLEAN_MODULES="bash bmake bootstrap-mk-files chrpath cwrappers digest go118 go120 go14 gtexinfo help2man libtool-base mktools nbpatch ncurses p5-gettext p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth pax perl pkgconf pkg_install"
 
 export PKGSRC_BASE
 export PREFIX
  
-. base.sh
+. base_noopt.sh
 #. base_syslibs_link.sh
 
 if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
   (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
 fi
-
+exit
 # doplneni promennych do mk.conf
 #MKCONF_PATH=$PREFIX/conf/mk.conf
 

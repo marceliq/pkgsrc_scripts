@@ -3,10 +3,10 @@
 _cwd=`pwd`
 
 #. python310-base.sh
-#. python311-base.sh
+. python311-base.sh
 #. python312-base.sh
 cd ${_cwd}
-. rust-base.sh
+#. rust-base.sh
 
 if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
   (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
