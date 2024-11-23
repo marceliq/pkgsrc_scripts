@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+#set -x
+
+umask 022
+
+PKGSRC_BASE=/app
+PREFIX=/app/common/podman
+CVS_BRANCH="pkgsrc-2023Q3"
+
+PKGSRC_MODULES="sysutils/podman net/libslirp"
+
+CLEAN_MODULES="bash bmake bootstrap-mk-files chrpath cwrappers digest go118 go120 go14 gtexinfo help2man libtool-base mktools nbpatch ncurses p5-gettext p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth pax perl pkgconf pkg_install"
+
+export PKGSRC_BASE
+export PREFIX
+ 
+. base.sh
+
+# doplneni promennych do mk.conf
+#MKCONF_PATH=$PREFIX/conf/mk.conf
+
+#props="CFLAGS-=\t\t-Os CXXFLAGS-=\t\t-Os CPPFLAGS-=\t\t-Os"
+
+#for prop in $props
+#  do
+#    _nol=`$GREP -P "$prop" $MKCONF_PATH | wc -l`
+#    if [ $_nol -eq 0 ]; then
+#      sed -i "s/\(\.endif.*\)/$prop\n\1/g" $MKCONF_PATH || exit 1
+#    fi
+#  done
+
+# instalace pkgsrc modulu
+for module in $PKGSRC_MODULES
+  do
+    _module=`echo $module | sed 's/.*\/\(.*\)/\1/g' | sed 's/py-/py\[0-9\]\{2\}-/g'`
+    _nol=`$PREFIX/sbin/pkg_info |$GREP -P "^$_module" |wc -l`
+    if [ $_nol -eq 0 ]; then
+      (cd ${PKGSRC_BASE}/pkgsrc/$module && bmake install clean clean-depends) || exit 1
+    fi
+  done
+
+exit
+
+VERSION=`$PREFIX/sbin/pkg_info | ${GREP} mq-metric-samples | ${AWK} -F '-' '{print $4}' | ${AWK} '{print $1}'`
+
+# cisteni prefixu
+_modules=""
+for module in $CLEAN_MODULES
+  do
+    _module=`echo $module | sed 's/py-/py\[0-9\]\{2\}-/g'`
+    _nol=`$PREFIX/sbin/pkg_info |$GREP -P "^$_module-[0-9]" |wc -l`
+#    echo $_module : $_nol
+    if [ $_nol -ne 0 ]; then
+      _modules="$_modules $_module"
+    fi
+  done
+
+if [ "$_modules" != "" ]; then
+  echo "Deleting modules: $_modules"
+  $PREFIX/sbin/pkg_delete -ff $_modules || exit 1
+fi
+
+rm -rf \
+$PREFIX/include \
+$PREFIX/conf \
+$PREFIX/bin/bmake \
+$PREFIX/info \
+$PREFIX/man \
+$PREFIX/pkgdb \
+$PREFIX/pkgdb.refcount \
+$PREFIX/share || exit 1
+
+# vytvoreni balicku
+(cd $PREFIX/.. && tar czf ibmmq_exporter-prometheus-${VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz ibmmq_exporter/bin/mq_prometheus ibmmq_exporter/ibm-mqc-redist) || exit 1
+
