@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -x
+set -x
 
 umask 022
 
@@ -21,7 +21,7 @@ PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 #PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 
 #PKGSRC_MODULES="misc/screen sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml wip/py-hvac misc/py-immutables"
-PKGSRC_MODULES="misc/screen sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml misc/py-immutables"
+PKGSRC_MODULES="misc/screen4 sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml misc/py-immutables"
 
 PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter timelib"
 

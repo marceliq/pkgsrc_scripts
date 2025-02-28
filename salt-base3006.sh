@@ -6,7 +6,7 @@ _cwd=`pwd`
 . python311-base.sh
 #. python312-base.sh
 cd ${_cwd}
-#. rust-base.sh
+. rust-base.sh
 
 if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
   (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
@@ -23,6 +23,7 @@ cd $_cwd
 
 #. python27-base.sh
 
+exit
 # salt
 _nol=`$PREFIX/sbin/pkg_info |grep salt |wc -l`
 if [ $_nol -eq 0 ]; then
