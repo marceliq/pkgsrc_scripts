@@ -75,11 +75,11 @@ fi
 cd ${PKGSRC_BASE}/pkgsrc/bootstrap || exit 1
 if [ "$solaris" = true ]; then
   if [ ! -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then
-    CC=$CC CPUFLAGS="-O2" ./bootstrap --abi 32 --make-jobs $PJOBS --prefer-pkgsrc no --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
+    CC=$CC LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" CFLAGS="-O2 -fstack-protector-strong -fno-common -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wstrict-prototypes" CPPFLAGS="-O2" CXXFLAGS="-O2" ./bootstrap --abi 32 --make-jobs $PJOBS --prefer-pkgsrc no --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
   fi
 else
   if [ ! -d "${PKGSRC_BASE}/pkgsrc/bootstrap/work" ]; then
-    CPUFLAGS="-O2" ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR --varbase $VARBASE || exit 1
+    LDFLAGS="-Wl,--strip-all" SHARED_LDFLAGS="-Wl,--strip-all" CFLAGS="-O2 -fstack-protector-strong -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=2" CPPFLAGS="-O2 -fstack-protector-strong -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=2" CXXFLAGS="-O2 -fstack-protector-strong -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=2" ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR --varbase $VARBASE || exit 1
 #    ./bootstrap --abi 64 --make-jobs $PJOBS --prefer-pkgsrc yes --prefix $PREFIX --unprivileged --sysconfdir $CONFDIR || exit 1
   fi
 fi
@@ -91,8 +91,8 @@ if [ "$solaris" = true ]; then
   PATH=$PREFIX/bin:$PATH:/usr/sbin:/usr/bin:/usr/dt/bin:/usr/ucb:/usr/ccs/bin:/usr/sfw/bin
   props="FETCH_USING=\t\tfetch CC=\t\t\t\/usr\/sfw\/bin\/gcc PKG_DEVELOPER=\t\tyes"
 else
-  props="CPUFLAGS-=\t\t-O2 MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes PKG_DEVELOPER=\t\tyes"
-#  props="MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
+#  props="CXXFLAGS-=\t\t-O2 MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
+  props="MAKE_JOBS=\t\t$PJOBS SKIP_LICENSE_CHECK=\tyes"
 fi
 
 MKCONF_PATH=$CONFDIR/mk.conf
