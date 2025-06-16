@@ -2,8 +2,8 @@
 
 _cwd=`pwd`
 
-#. python310-base.sh
-. python311-base.sh
+. python310-base.sh
+#. python311-base.sh
 #. python312-base.sh
 cd ${_cwd}
 . rust-base.sh
