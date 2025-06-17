@@ -25,7 +25,7 @@ PKGSRC_MODULES="lang/py-six misc/screen4 sysutils/monit devel/py-pip databases/p
 
 PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter"
 
-CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers curl digest flex gtexinfo help2man libarchive libtool-base libuv itstool libxml2 llvm mktools nbpatch nghttp2 p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust xmlcatmgr py${PYVER}-build py${PYVER}-calver py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatch-vcs py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pip py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-libxml2 py${PYVER}-trove-classifiers py${PYVER}-wheel py${PYVER}-scikit-build-core py${PYVER}-flit_scm py${PYVER}-setuptool_scm"
+CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers curl digest flex gtexinfo help2man libarchive libtool-base libuv itstool libxml2 llvm mktools nbpatch nghttp2 p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust xmlcatmgr py${PYVER}-build py${PYVER}-calver py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatch-vcs py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-libxml2 py${PYVER}-trove-classifiers py${PYVER}-wheel py${PYVER}-scikit-build-core py${PYVER}-flit_scm py${PYVER}-setuptool_scm"
 
 # uprava Makefile pro monit
 #MONIT_MODULE="sysutils/monit"
@@ -105,5 +105,5 @@ for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm
 
 # vytvoreni balicku
 . /etc/os-release
-(cd $PREFIX/.. && tar czf salt-minion-${SALT_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-el${VERSION_ID:0:1}-`uname -p`.tar.gz salt3006) || exit 1
+(cd $PREFIX/.. && tar czf salt-minion-${SALT_VERSION}-py${PYVER}-`uname -s | tr '[:upper:]' '[:lower:]'`-el${VERSION_ID:0:1}-`uname -p`.tar.gz salt3006) || exit 1
 
