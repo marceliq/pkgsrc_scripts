@@ -8,8 +8,10 @@ PREFIX=/app/salt/salt3006
 
 #CVS_BRANCH="pkgsrc-2019Q4"
 #CVS_BRANCH="pkgsrc-2020Q3"
-CVS_BRANCH="HEAD"
+#CVS_BRANCH="HEAD"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
+#PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
+PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.gz"
 
 export PKGSRC_BASE
 export PREFIX
@@ -24,9 +26,10 @@ PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 
 #PKGSRC_MODULES="devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-redis devel/py-kafka-python devel/py-mako devel/git-base sysutils/py-kazoo time/py-dateutil www/py-cherrypy17 security/py-m2crypto security/gnupg2 sysutils/py-Glances databases/py-sqlite3"
 #PKGSRC_MODULES="devel/py-pip devel/py-readline devel/py-curses /devel/py-cursespanel databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil www/py-cherrypy rb/py-m2crypto databases/py-sqlite3"
-PKGSRC_MODULES="misc/screen4 lang/py-six devel/py-more-itertools devel/py-jaraco.functools misc/py-autocommand devel/py-jaraco.context devel/py-typeguard lang/py-inflect textproc/py-jaraco.text devel/py-jaraco.collections time/py-tempora net/py-portend devel/py-zc.lockfile converters/py-simplejson www/py-cheroot sysutils/monit www/py-tornado rb/py-pygit2 devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil misc/py-immutables www/py-cherrypy textproc/py-toml wip/py-hvac time/py-timelib time/py-pytz"
+PKGSRC_MODULES="misc/screen4 lang/py-six devel/py-more-itertools devel/py-jaraco.functools misc/py-autocommand devel/py-jaraco.context devel/py-typeguard lang/py-inflect textproc/py-jaraco.text devel/py-jaraco.collections time/py-tempora net/py-portend devel/py-zc.lockfile converters/py-simplejson www/py-cheroot sysutils/monit www/py-tornado rb/py-pygit2 devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil misc/py-immutables www/py-cherrypy textproc/py-toml wip/py-hvac time/py-timelib time/py-pytz rb/py-backports.tarfile"
 
-PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter"
+#PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter"
+PIP_MODULES="backports.ssl_match_hostname contextvars croniter"
 
 #PIP_MODULES="jira python-consul dohq-artifactory croniter timelib hvac python-gnupg GitPython docker pywinrm pymdstat ptpython==0.41 elasticsearch"
 #PIP_MODULES="jira python-consul dohq-artifactory croniter timelib hvac python-gnupg docker pywinrm pymdstat elasticsearch px-proxy${PYVER}"
@@ -78,6 +81,8 @@ for module in $PKGSRC_MODULES
       (cd ${PKGSRC_BASE}/pkgsrc/$module && bmake -B install clean clean-depends) || exit 1
     fi
   done
+
+#(cd ${PKGSRC_BASE}/pkgsrc/rb/py-packaging && bmake -B install clean clean-depends) || exit 1
 
 # instalace modulu pres pip
 $PREFIX/bin/pip${PYVER_SEP} install $PIP_MODULES || exit 1

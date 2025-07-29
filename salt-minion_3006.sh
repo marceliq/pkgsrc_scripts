@@ -8,6 +8,7 @@ PREFIX=/app/common/salt3006
 
 CVS_BRANCH="HEAD"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
+PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/stable/pkgsrc.tar.gz"
 
 export PKGSRC_BASE
 export PREFIX
@@ -21,9 +22,9 @@ PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 #PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 
 #PKGSRC_MODULES="misc/screen sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml wip/py-hvac misc/py-immutables"
-PKGSRC_MODULES="lang/py-six misc/screen4 sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml misc/py-immutables time/py-timelib time/py-pytz"
+PKGSRC_MODULES="lang/py-six misc/screen4 sysutils/monit devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil textproc/py-toml misc/py-immutables time/py-timelib time/py-pytz rb/py-backports.tarfile"
 
-PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter"
+PIP_MODULES="backports.ssl_match_hostname contextvars croniter"
 
 CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers curl digest flex gtexinfo help2man libarchive libtool-base libuv itstool libxml2 llvm mktools nbpatch nghttp2 p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust xmlcatmgr py${PYVER}-build py${PYVER}-calver py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatch-vcs py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-libxml2 py${PYVER}-trove-classifiers py${PYVER}-wheel py${PYVER}-scikit-build-core py${PYVER}-flit_scm py${PYVER}-setuptool_scm"
 

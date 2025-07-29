@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-#. base.sh
+. base.sh
 
 # doplneni promennych do mk.conf
 MKCONF_PATH=$PREFIX/conf/mk.conf
 
-props="PKG_OPTIONS.rust=\trust-internal-llvm"
+props="PYTHON_DEFAULT_VERSION=\t313 PYTHON_VERSION_DEFAULT=\t313 PYPACKAGE=\t\tpython313 PKG_OPTIONS.python313=\t-x11"
 
 for prop in $props
   do
@@ -22,9 +22,9 @@ for prop in $props
 #  (cd ${PKGSRC_BASE}/pkgsrc/devel/elftoolchain && bmake install clean clean-depends) || exit 1
 #fi
 
-# rust
-#_nol=`$PREFIX/sbin/pkg_info |$GREP rust |wc -l`
-#if [ $_nol -eq 0 ]; then
-#  (cd ${PKGSRC_BASE}/pkgsrc/lang/rust-bin && bmake install clean clean-depends) || exit 1
-#fi
+# python
+_nol=`$PREFIX/sbin/pkg_info |$GREP python313 |wc -l`
+if [ $_nol -eq 0 ]; then
+  (cd ${PKGSRC_BASE}/pkgsrc/lang/python313 && bmake install clean clean-depends) || exit 1
+fi
 
