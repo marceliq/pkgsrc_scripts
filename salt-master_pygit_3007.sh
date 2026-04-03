@@ -4,7 +4,7 @@
 umask 022
 
 PKGSRC_BASE=/app
-PREFIX=/app/salt/salt3006
+PREFIX=/app/salt/salt3007
 
 #CVS_BRANCH="pkgsrc-2019Q4"
 #CVS_BRANCH="pkgsrc-2020Q3"
@@ -16,7 +16,7 @@ CVS_BRANCH="HEAD"
 export PKGSRC_BASE
 export PREFIX
 
-. salt-base3006.sh
+. salt-base3007.sh
 
 PYVER=`$PREFIX/sbin/pkg_info | $GREP -P "^python" | $SED 's/python([0-9]{2,3}).*/\1/g'`
 PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
@@ -29,11 +29,13 @@ PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
 PKGSRC_MODULES="security/mozilla-rootcerts-openssl misc/screen4 lang/py-six devel/py-more-itertools misc/py-autocommand devel/py-jaraco.context devel/py-typeguard lang/py-inflect devel/py-jaraco.collections time/py-tempora net/py-portend devel/py-zc.lockfile converters/py-simplejson www/py-cheroot sysutils/monit www/py-tornado rb/py-pygit2 devel/py-pip databases/py-redis devel/py-kafka-python devel/py-mako sysutils/py-kazoo time/py-dateutil misc/py-immutables www/py-cherrypy textproc/py-toml wip/py-hvac time/py-timelib time/py-pytz rb/py-backports.tarfile"
 
 #PIP_MODULES="backports.ssl_match_hostname backports.tarfile contextvars croniter"
-PIP_MODULES="backports.ssl_match_hostname contextvars croniter"
+PIP_MODULES="backports.ssl_match_hostname contextvars croniter rpm-vercmp"
 
 #PIP_MODULES="jira python-consul dohq-artifactory croniter timelib hvac python-gnupg GitPython docker pywinrm pymdstat ptpython==0.41 elasticsearch"
 #PIP_MODULES="jira python-consul dohq-artifactory croniter timelib hvac python-gnupg docker pywinrm pymdstat elasticsearch px-proxy${PYVER}"
-CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers digest flex gtexinfo help2man libarchive libtool-base libuv llvm mktools nbpatch p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust py${PYVER}-build py${PYVER}-calver py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-trove-classifiers py${PYVER}-wheel py${PYVER}-hatch-vcs py${PYVER}-scikit-build-core py${PYVER}-flit_scm py${PYVER}-setuptool_scm"
+#CLEAN_MODULES="automake autoconf bmake bootstrap-mk-files bsdtar ccache cmake cwrappers digest flex gtexinfo help2man libarchive libtool-base libuv llvm mktools nbpatch p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext pax perl pkg_install pkgconf rhash rust py${PYVER}-build py${PYVER}-calver py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatchling py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-pluggy py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-trove-classifiers py${PYVER}-wheel py${PYVER}-hatch-vcs py${PYVER}-scikit-build-core py${PYVER}-flit_scm py${PYVER}-setuptool_scm"
+
+CLEAN_MODULES="bmake bootstrap-mk-files pkg_install automake autoconf bsdtar checkperms cmake cwrappers digest flex gtexinfo help2man libarchive libnbcompat libtool-base libuv meson mktools ninja-build p5-gettext p5-Locale-libintl p5-Text-Unidecode p5-Unicode-EastAsianWidth pax perl pkgconf py${PYVER}-build py${PYVER}-calver py${PYVER}-expandvars py${PYVER}-flit_core py${PYVER}-hatch-fancy-pypi-readme py${PYVER}-hatchling py${PYVER}-hatch-vcs py${PYVER}-immutables py${PYVER}-installer py${PYVER}-maturin py${PYVER}-pathspec py${PYVER}-scikit-build-core py${PYVER}-pluggy py${PYVER}-poetry-core py${PYVER}-pyproject_hooks py${PYVER}-semantic_version py${PYVER}-setuptools-rust py${PYVER}-setuptools_scm py${PYVER}-trove-classifiers py${PYVER}-vcs-versioning py${PYVER}-wheel re2c rhash rust"
 
 # uprava Makefile pro pygit2
 #PYGIT_MODULE="devel/py-pygit2"
@@ -135,7 +137,7 @@ for module in $CLEAN_MODULES
 if [ "$_modules" != "" ]; then
   echo "Deleting modules: $_modules"
   $PREFIX/sbin/pkg_delete -ff $_modules || exit 1
-#  $PREFIX/sbin/pkg_delete $_modules || exit 1
+  #$PREFIX/sbin/pkg_delete $_modules || exit 1
 fi
 
 rm -rf \
@@ -155,5 +157,5 @@ $PREFIX/lib/python${PYVER_SEP}/idlelib/idle_test || exit 1
 for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm -f ${f}; done
 
 # vytvoreni balicku
-(cd $PREFIX/.. && tar czf salt-master-${SALT_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz salt3006) || exit 1
+(cd $PREFIX/.. && tar czf salt-master-${SALT_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz salt3007) || exit 1
 

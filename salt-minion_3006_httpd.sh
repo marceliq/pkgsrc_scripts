@@ -4,7 +4,7 @@
 umask 022
 
 PKGSRC_BASE=/app
-PREFIX=/app/common/salt3006
+PREFIX=/app/common/salt3006-httpd
 
 CVS_BRANCH="HEAD"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/pkgsrc-2018Q4/pkgsrc.tar.gz"
@@ -106,5 +106,5 @@ for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm
 
 # vytvoreni balicku
 . /etc/os-release
-(cd $PREFIX/.. && tar czf salt-minion-${SALT_VERSION}-py${PYVER}-`uname -s | tr '[:upper:]' '[:lower:]'`-el${VERSION_ID:0:1}-`uname -p`.tar.gz salt3006) || exit 1
+(cd $PREFIX/.. && tar czf salt-minion-${SALT_VERSION}-py${PYVER}-`uname -s | tr '[:upper:]' '[:lower:]'`-el${VERSION_ID:0:1}-`uname -p`.tar.gz salt3006-httpd) || exit 1
 

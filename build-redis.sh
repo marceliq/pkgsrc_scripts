@@ -12,7 +12,7 @@ CVS_BRANCH="HEAD"
 
 PKGSRC_MODULES="databases/redis"
 
-CLEAN_MODULES="bmake bootstrap-mk-files bzip2 ccache expat ncurses libidn2 perl libuv m4 libunistring automake autoconf bison bsdtar cmake cwrappers curl digest docbook-xsl docbook-xml fontconfig ghostscript-gpl ghostscript groff ghostscript-fonts freetype2 gettext-lib gettext-tools gmake gperf gtexinfo help2man jasper netpbm jbigkit tiff jpeg libarchive libICE libSM libXt libXaw libXmu libXpm libX11 libXext libXau libxcb libXdmcp libpaper libtool-base libxml2 libxslt makedepend mandoc nbpatch p5-CPAN-Meta p5-Locale-libintl p5-Module-Build p5-Perl4-CoreLibs p5-Scalar-List-Utils p5-Text-Unidecode p5-Unicode-EastAsianWidth p5-gettext p5-inc-latest p5-Sub-Uplevel p5-Test-Exception p5-Test-Warn p5-Test-NoWarnings p5-Test-Simple pax pkgconf pkg_install png py27-argparse py27-atomicwrites py27-test py27-attrs py27-cElementTree py27-xcbgen py27-funcsigs py27-linecache2 py27-unittest2 py27-pathlib2 py27-pbr py27-traceback2 py27-pluggy py27-py py27-scandir py27-setuptools_scm py27-setuptools_scm_git_archive rhash swig tradcpp xcb-proto xmlcatmgr xorgproto xtrans zlib"
+CLEAN_MODULES="bmake bootstrap-mk-files checkperms cwrappers digest libnbcompat libtool-base mktools nbpatch perl pkgconf pkg_install"
 
 export PKGSRC_BASE
 export PREFIX
@@ -46,6 +46,7 @@ for module in $CLEAN_MODULES
 if [ "$_modules" != "" ]; then
   echo "Deleting modules: $_modules"
   $PREFIX/sbin/pkg_delete -ff $_modules || exit 1
+#  $PREFIX/sbin/pkg_delete $_modules || exit 1
 fi
 
 rm -rf \

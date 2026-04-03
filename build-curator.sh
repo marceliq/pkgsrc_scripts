@@ -9,20 +9,24 @@ CVS_BRANCH="HEAD"
 #CVS_BRANCH="pkgsrc-2021Q1"
 #PKGSRC_URL="https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz"
 
+export PKGSRC_BASE
+export PREFIX
+ 
+. python312-base.sh
+
+PYVER=`$PREFIX/sbin/pkg_info | $GREP -P "^python" | $SED 's/python([0-9]{2,3}).*/\1/g'`
+PYVER_SEP=`echo ${PYVER:0:1}.${PYVER:1}`
+
+#. base.sh
+
 #PKGSRC_MODULES="devel/py-pip lang/py-cxfreeze databases/py-elasticsearch textproc/py-yaml"
 #PKGSRC_MODULES="devel/py-pip lang/py-cxfreeze"
 PKGSRC_MODULES="devel/py-pip"
 #PIP_MODULES="voluptuous>=0.9.3 elasticsearch urllib3>=1.24.2,<1.25 requests>=2.20.0 boto3>=1.9.142 requests_aws4auth>=0.9 click>=6.7,<7.0 pyyaml==3.13 certifi>=2019.9.11 six>=1.11.0 elasticsearch-curator"
-PIP_MODULES="elasticsearch-curator"
+PIP_MODULES="elasticsearch7 elasticsearch-curator==8.0.21"
+#PIP_MODULES="elasticsearch-curator==8.0.21"
 
-CLEAN_MODULES="bsdtar cwrappers digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto py39-pip readline ncurses expat py39-expat py39-setuptools ccache bootstrap-mk-files bmake pkg_install"
-
-export PKGSRC_BASE
-export PREFIX
- 
-. python39-base.sh
-
-#. base.sh
+CLEAN_MODULES="bsdtar cwrappers digest libtool-base makedepend nbpatch pax perl pkgconf unzip xorgproto ${PYVER}-pip ${PYVER}-expat ${PYVER}-setuptools ccache bootstrap-mk-files bmake pkg_install"
 
 #if [ ! -d "${PKGSRC_BASE}/pkgsrc/rb" ]; then
 #  (cd $PKGSRC_BASE/pkgsrc && git clone --depth 1 https://github.com/marceliq/rb.git rb) || exit 1
@@ -41,16 +45,16 @@ for module in $PKGSRC_MODULES
 # instalace modulu pres pip
 for module in ${PIP_MODULES}
   do
-    $PREFIX/bin/pip3.9 install $module || exit 1
+    $PREFIX/bin/pip${PYVER_SEP} install $module || exit 1
   done
 
 # odchytnout verzi curatoru
-CURATOR_VERSION=`$PREFIX/bin/pip3.9 list elasticsearch-curator |${GREP} -P '^elasticsearch-curator\ +[0-9]' |${AWK} -F ' ' '{print $2}'` || exit 1
+CURATOR_VERSION=`$PREFIX/bin/pip${PYVER_SEP} list elasticsearch-curator |${GREP} -P '^elasticsearch-curator\ +[0-9]' |${AWK} -F ' ' '{print $2}'` || exit 1
 echo $CURATOR_VERSION
 
 # odchytnout verzi curatoru
-ES_VERSION=`$PREFIX/bin/pip3.9 list elasticsearch |${GREP} -P '^elasticsearch\ +[0-9]' |${AWK} -F ' ' '{print $2}'` || exit 1
-echo $ES_VERSION
+#ES_VERSION=`$PREFIX/bin/pip${PYVER_SEP} list elasticsearch |${GREP} -P '^elasticsearch\ +[0-9]' |${AWK} -F ' ' '{print $2}'` || exit 1
+#echo $ES_VERSION
 
 # cisteni prefixu
 _modules=""
@@ -66,6 +70,7 @@ for module in $CLEAN_MODULES
 
 if [ "$_modules" != "" ]; then
   echo "Deleting modules: $_modules"
+#  $PREFIX/sbin/pkg_delete $_modules || exit 1
   $PREFIX/sbin/pkg_delete -ff $_modules || exit 1
 fi
 
@@ -76,17 +81,17 @@ $PREFIX/man/* \
 $PREFIX/pkgdb \
 $PREFIX/pkgdb.refcount \
 $PREFIX/share/doc/* \
-$PREFIX/lib/python3.9/bsddb/test \
-$PREFIX/lib/python3.9/email/test \
-$PREFIX/lib/python3.9/json/tests \
-$PREFIX/lib/python3.9/unittest/test \
-$PREFIX/lib/python3.9/test \
-$PREFIX/lib/python3.9/ctypes/test \
-$PREFIX/lib/python3.9/lib2to3/tests \
-$PREFIX/lib/python3.9/sqlite3/test \
-$PREFIX/lib/python3.9/distutils/tests \
-$PREFIX/lib/python3.9/idlelib/idle_test \
-$PREFIX/lib/python3.9/lib-tk/test || exit 1
+$PREFIX/lib/python${PYVER_SEP}/bsddb/test \
+$PREFIX/lib/python${PYVER_SEP}/email/test \
+$PREFIX/lib/python${PYVER_SEP}/json/tests \
+$PREFIX/lib/python${PYVER_SEP}/unittest/test \
+$PREFIX/lib/python${PYVER_SEP}/test \
+$PREFIX/lib/python${PYVER_SEP}/ctypes/test \
+$PREFIX/lib/python${PYVER_SEP}/lib2to3/tests \
+$PREFIX/lib/python${PYVER_SEP}/sqlite3/test \
+$PREFIX/lib/python${PYVER_SEP}/distutils/tests \
+$PREFIX/lib/python${PYVER_SEP}/idlelib/idle_test \
+$PREFIX/lib/python${PYVER_SEP}/lib-tk/test || exit 1
 
 for f in `find ${PREFIX} -type f | ${GREP} -P '\.pyc$|\.pyo$|\.a$|\.la$'`; do rm -f ${f}; done
 
@@ -95,5 +100,5 @@ _actual=`pwd`
 cd $_actual
 
 # vytvoreni balicku
-(cd $PREFIX/.. && tar czf curator-${CURATOR_VERSION}-es-${ES_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz curator) || exit 1
+(cd $PREFIX/.. && tar czf curator-${CURATOR_VERSION}-`uname -s | tr '[:upper:]' '[:lower:]'`-`uname -p`.tar.gz curator) || exit 1
 
